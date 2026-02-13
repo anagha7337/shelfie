@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shelfie</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <header>
+        <p class="headname">Shelfie</p>
+        <button class="logout-button" onclick="logout()">Logout</button>
+    </header>
+
+    <form>
+        <div class="search">
+            <input class="search-input" type="search" placeholder="Search / Add products">
+
+            <button type="button" class="enter-button">
+                <span class="search-icon material-symbols-outlined">search</span>
+            </button>
+
+            <button type="button" class="enter-button">
+                <span class="barcode-icon material-symbols-outlined">barcode_scanner</span>
+            </button>
+        </div>
+
+        <!-- Camera container -->
+        <div class="camera-container" id="cameraContainer">
+            <button type="button" class="close-camera">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+
+            <video id="camera" autoplay playsinline></video>
+        </div>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

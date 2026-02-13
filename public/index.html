@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <p class="headname">Shelfie</p>
+    </header>
+
+    <div class="body1">
+        <div class="login-box">
+            <p class="login-head">
+                Login
+            </p>
+            <div class="login-form-container">
+                <div class="form-content">
+                    <div class="input-group">
+                        <label class="input-label">Enter email</label>
+                        <input id="username" class="input-field" placeholder="">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Enter password</label>
+                        <input id="password" type="password" class="input-field" placeholder="">
+                    </div>
+                    <button class="login-button" onclick="login()">Login</button>
+
+                    <div class="guide">
+                        <p class="guide-text">Do not have an account?</p>
+                        <a href="signup.html" style="color: rgb(31, 100, 227); text-decoration: none; font-size: 12px;">Signup</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="register.js"></script>
+
+</body>
+</html>
