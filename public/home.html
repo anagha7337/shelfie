@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
-    
 </head>
 <body>
     <header>
@@ -17,30 +16,270 @@
         <button class="logout-button" onclick="logout()">Logout</button>
     </header>
 
-    <form>
-        <div class="search">
-            <input class="search-input" type="search" placeholder="Search / Add products">
+    <div class="main-container">
+        <!-- TO BUY LIST SECTION -->
+        <section class="to-buy-section">
+            <h2 class="section-title">Your To Buy List</h2>
+            
+            <div class="search-container">
+                <div class="search">
+                    <input class="search-input" id="toBuySearch" type="text" placeholder="Search / Add products">
 
-            <button type="button" class="enter-button">
-                <span class="search-icon material-symbols-outlined">search</span>
-            </button>
+                    <button type="button" class="enter-button search-btn-disabled">
+                        <span class="search-icon material-symbols-outlined">search</span>
+                    </button>
 
-            <button type="button" class="enter-button">
-                <span class="barcode-icon material-symbols-outlined">barcode_scanner</span>
-            </button>
-        </div>
+                    <button type="button" class="enter-button barcode-btn-disabled">
+                        <span class="barcode-icon material-symbols-outlined">barcode_scanner</span>
+                    </button>
 
-        <!-- Camera container -->
-        <div class="camera-container" id="cameraContainer">
-            <button type="button" class="close-camera">
-                <span class="material-symbols-outlined">close</span>
-            </button>
+                    <button type="button" class="enter-button add-to-buy-btn" id="addToBuyBtn">
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                </div>
+            </div>
 
-            <video id="camera" autoplay playsinline></video>
-        </div>
-    </form>
+            <!-- To Buy List Grid -->
+            <div class="to-buy-grid">
+                <div class="to-buy-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Food & Groceries</h3>
+                        <button class="clear-btn" data-category="food-groceries">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                    <ul class="to-buy-list" id="list-food-groceries"></ul>
+                </div>
+
+                <div class="to-buy-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Diary & Bakery</h3>
+                        <button class="clear-btn" data-category="diary-bakery">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                    <ul class="to-buy-list" id="list-diary-bakery"></ul>
+                </div>
+
+                <div class="to-buy-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Snack & Beverages</h3>
+                        <button class="clear-btn" data-category="snack-beverages">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                    <ul class="to-buy-list" id="list-snack-beverages"></ul>
+                </div>
+
+                <div class="to-buy-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Personal Care</h3>
+                        <button class="clear-btn" data-category="personal-care">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                    <ul class="to-buy-list" id="list-personal-care"></ul>
+                </div>
+
+                <div class="to-buy-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Laundry & Cleaning</h3>
+                        <button class="clear-btn" data-category="laundry-cleaning">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                    <ul class="to-buy-list" id="list-laundry-cleaning"></ul>
+                </div>
+
+                <div class="to-buy-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Health & Pharmacy</h3>
+                        <button class="clear-btn" data-category="health-pharmacy">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                    <ul class="to-buy-list" id="list-health-pharmacy"></ul>
+                </div>
+
+                <div class="to-buy-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Household</h3>
+                        <button class="clear-btn" data-category="household">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                    <ul class="to-buy-list" id="list-household"></ul>
+                </div>
+
+                <div class="to-buy-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Stationary</h3>
+                        <button class="clear-btn" data-category="stationary">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                    <ul class="to-buy-list" id="list-stationary"></ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- YOUR SHELVES SECTION -->
+        <section class="shelves-section">
+            <h2 class="section-title">Your Shelves</h2>
+            <div class="shelves-grid">
+                <button class="shelf-btn" onclick="window.location.href='food.html'">Food</button>
+                <button class="shelf-btn" onclick="window.location.href='medicine.html'">Medicine</button>
+                <button class="shelf-btn" onclick="window.location.href='skincare.html'">Skincare</button>
+                <button class="shelf-btn" onclick="window.location.href='household-others.html'">Household/Others</button>
+            </div>
+        </section>
+
+        <!-- ADD ITEM SECTION -->
+        <section class="add-item-section">
+            <h2 class="section-title">Add item</h2>
+            
+            <!-- Search/Barcode Container -->
+            <div class="search-container">
+                <div class="search">
+                    <input class="search-input" id="productSearch" type="text" placeholder="Search / Add products">
+
+                    <button type="button" class="enter-button" id="searchProductBtn">
+                        <span class="search-icon material-symbols-outlined">search</span>
+                    </button>
+
+                    <button type="button" class="enter-button" id="barcodeBtn">
+                        <span class="barcode-icon material-symbols-outlined">barcode_scanner</span>
+                    </button>
+                </div>
+
+                <!-- Camera container -->
+                <div class="camera-container" id="cameraContainer">
+                    <button type="button" class="close-camera" id="closeCameraBtn">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Add Item Form -->
+            <form class="add-item-form" id="addItemForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productName">Product name :</label>
+                        <input type="text" id="productName" name="productName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category :</label>
+                        <select id="category" name="category" required>
+                            <option value="">Select category</option>
+                            <option value="food">Food</option>
+                            <option value="medicine">Medicine</option>
+                            <option value="skincare">Skincare</option>
+                            <option value="household-others">Household/Others</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expiryDate">Expiry date :</label>
+                        <input type="date" id="expiryDate" name="expiryDate">
+                    </div>
+                </div>
+
+                <div class="or-divider">
+                    <span>OR</span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mfgDate">Mfg date :</label>
+                        <input type="date" id="mfgDate" name="mfgDate">
+                    </div>
+                </div>
+
+                <div class="form-group best-before-group">
+                    <label>Best before :</label>
+                    <div class="best-before-inputs">
+                        <div class="input-with-label">
+                            <input type="number" id="bestBeforeYears" name="bestBeforeYears" min="0" max="50" placeholder="0">
+                            <span class="input-label-text">years</span>
+                        </div>
+                        <div class="input-with-label">
+                            <select id="bestBeforeMonths" name="bestBeforeMonths">
+                                <option value="">months</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                            </select>
+                        </div>
+                        <div class="input-with-label">
+                            <select id="bestBeforeDays" name="bestBeforeDays" required>
+                                <option value="">days</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group remind-before-group">
+                    <label>Remind before :</label>
+                    <div class="remind-before-inputs">
+                        <div class="input-with-label">
+                            <input type="number" id="remindMonths" name="remindMonths" min="0" max="12" placeholder="0">
+                            <span class="input-label-text">months</span>
+                        </div>
+                        <div class="input-with-label">
+                            <input type="number" id="remindDays" name="remindDays" min="0" max="31" placeholder="0" required>
+                            <span class="input-label-text">days</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Add to Shelf</button>
+            </form>
+        </section>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
