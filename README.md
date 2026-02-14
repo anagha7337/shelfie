@@ -98,8 +98,10 @@ wrangler login
 ![To Buy List](Screenshots/to-buy-list.png)
 Automatically organizes shopping items into 8 categories using keyword matching with AI fallback (Groq LLaMA 3 70B) for unknown products, ensuring accurate categorization without manual sorting
 
-![Add item to track expiry](Screenshots/add-item.png)
+![Barcode scanner](Screenshots/barcode-scanner.jpg)
 Instant product recognition using QuaggaJS barcode scanning (EAN, UPC, Code 128) integrated with Open Food Facts and Open Beauty Facts databases for automatic product information retrieval
+
+![Add item to track expiry](Screenshots/add-item.png)
 Intelligent expiry date calculation from manufacturing date + best before period (years, months, days) for products without explicit expiry dates, with automatic reminder scheduling
 
 ![Expiry Shelf to track expiry dates](Screenshots/expiry-shelf.png)
