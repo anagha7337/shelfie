@@ -376,28 +376,6 @@ service cloud.firestore {
 
 ---
 
-#### 6. localStorage Schema
-
-**Key:** `toBuyLists`
-
-**Structure:**
-```javascript
-{
-  "food-groceries": [
-    { "name": "Rice", "checked": false, "id": 1707901234567 },
-    { "name": "Pasta", "checked": true, "id": 1707901234568 }
-  ],
-  "diary-bakery": [
-    { "name": "Milk", "checked": false, "id": 1707901234569 }
-  ],
-  "snack-beverages": [],
-  "personal-care": [],
-  "laundry-cleaning": [],
-  "health-pharmacy": [],
-  "household": [],
-  "stationary": []
-}
-```
 
 **Key:** `lastEmailSent`
 
