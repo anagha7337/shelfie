@@ -2,27 +2,34 @@
   <img src="./img.png" alt="Project Banner" width="100%">
 </p>
 
-# [Project Name] 🎯
+# [Shelfie] 🎯
 
 ## Basic Details
 
-### Team Name: [Name]
+### Team Name: [blubyte]
 
 ### Team Members
-- Member 1: [Name] - [College]
-- Member 2: [Name] - [College]
+- Member 1: [Anagha K] - [NSS College of Engineering, Palakkad]
 
 ### Hosted Project Link
-[mention your project hosted link here]
+[https://shelfie-93cb0.web.app]
 
 ### Project Description
-[2-3 lines about what your project does]
+[Shelfie is a smart inventory and shopping assistant that helps users:
+- Track expiry dates of food, medicines, skincare, and household products
+- Scan barcodes to automatically fetch product details
+- Receive timely reminders before items expire
+- Create an intelligent “To-Buy” list that auto-categorizes items by supermarket sections
+By combining barcode scanning, product data APIs, and smart categorization, Shelfie reduces waste, improves safety, and makes shopping more organized and efficient.]
 
 ### The Problem statement
-[What problem are you solving?]
+[In everyday households, people often forget the expiry dates of food, medicines, and personal care products. This leads to food waste, health risks from expired medicines, and unnecessary repurchases of items already available at home. Additionally, while shopping in supermarkets, unorganized grocery lists cause confusion, repeated walking between sections, and inefficient shopping.
+There is a need for a simple, smart system that helps users track product expiry dates and organize shopping more efficiently.]
 
 ### The Solution
-[How are you solving it?]
+[By introducing expiry date trackers to track expiry dates efficiently and email notifications before expiry
+By providing a basic yet smart 'to buy' list easy to use
+Enter an item with least number of clicks maximising user convenience]
 
 ---
 
@@ -31,10 +38,20 @@
 ### Technologies/Components Used
 
 **For Software:**
-- Languages used: [e.g., JavaScript, Python, Java]
-- Frameworks used: [e.g., React, Django, Spring Boot]
-- Libraries used: [e.g., axios, pandas, JUnit]
-- Tools used: [e.g., VS Code, Git, Docker]
+- Languages used: [HTML, CSS & JavaScript]
+- Frameworks used: [Firebase (Authentication & Firestore Database)
+EmailJS (Email notifications)]
+- Libraries used: [QuaggaJS (Barcode scanning)
+Firebase SDK v10.12.0
+Material Symbols (Icons)
+Lexend Font (Typography)]
+- Tools used: [VS Code (Development)
+Git (Version control)
+Firebase Hosting (Deployment)
+Cloudflare Workers (AI service)
+Groq API (AI categorization)
+Open Food Facts API (Product database)
+Open Beauty Facts API (Product database)]
 
 **For Hardware:**
 - Main components: [List main components]
@@ -46,10 +63,11 @@
 ## Features
 
 List the key features of your project:
-- Feature 1: [Description]
-- Feature 2: [Description]
-- Feature 3: [Description]
-- Feature 4: [Description]
+- Feature 1: [Smart Auto-Categorizing To-Buy List : Automatically organizes shopping items into 8 categories using keyword matching with AI fallback for unknown products.]
+- Feature 2: [Multi-Shelf Expiry Date Tracker : Track product expiry dates across 4 shelves with color-coded alerts]
+- Feature 3: [Barcode Scanner & Product Search : Scan product barcodes or search by name to auto-fill product information using Open Food Facts and Open Beauty Facts databases. Supports EAN, UPC, and Code 128 barcode formats.]
+- Feature 4: [Smart Email Notifications : Receives daily email digests for items nearing expiry with customizable reminder periods (months + days before expiry). Includes urgency summary showing expired, expiring soon (≤3 days), and expiring this week (4-7 days) items.]
+- - Feature 5: [Manufacturing Date Calculator : Calculate expiry dates from manufacturing date + best before period (years, months, days) for products that don't have explicit expiry dates printed.]
 
 ---
 
@@ -59,12 +77,17 @@ List the key features of your project:
 
 #### Installation
 ```bash
-[Installation commands - e.g., npm install, pip install -r requirements.txt]
+npm install -g firebase-tools
+npm install -g wrangler
 ```
 
 #### Run
 ```bash
-[Run commands - e.g., npm start, python app.py]
+git clone https://github.com/yourusername/shelfie.git
+cd shelfie
+npm install
+firebase login
+wrangler login
 ```
 
 ### For Hardware:
