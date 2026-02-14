@@ -98,7 +98,7 @@ wrangler login
 ![To Buy List](Screenshots/to-buy-list.png)
 Automatically organizes shopping items into 8 categories using keyword matching with AI fallback (Groq LLaMA 3 70B) for unknown products, ensuring accurate categorization without manual sorting
 
-![Barcode scanner](Screenshots/barcode-scanner.jpg)
+![Barcode scanner](Screenshots/barcode-scanner.jpeg)
 Instant product recognition using QuaggaJS barcode scanning (EAN, UPC, Code 128) integrated with Open Food Facts and Open Beauty Facts databases for automatic product information retrieval
 
 ![Add item to track expiry](Screenshots/add-item.png)
