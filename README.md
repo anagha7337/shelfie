@@ -2,14 +2,14 @@
   <img src="./img.png" alt="Project Banner" width="100%">
 </p>
 
-# [Shelfie] 🎯
+# Shelfie 🎯
 
 ## Basic Details
 
-### Team Name: [blubyte]
+### Team Name: blubyte
 
 ### Team Members
-- Member 1: [Anagha K] - [NSS College of Engineering, Palakkad]
+- Member 1: Anagha K - NSS College of Engineering, Palakkad
 
 ### Hosted Project Link
 [https://shelfie-93cb0.web.app]
@@ -106,14 +106,15 @@ wrangler login
 
 #### Screenshots (Add at least 3)
 
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+![Login](Screenshots/login.png)
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+![To Buy List](Screenshots/to-buy-list.png)
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+![Add item to track expiry](Screenshots/add-item.png)
+
+![Expiry Shelf to track expiry dates](Screenshots/expiry-shelf.png)
+
+![Email reminder](Screenshots/reminder.png)
 
 #### Diagrams
 
