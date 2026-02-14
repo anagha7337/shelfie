@@ -1,7 +1,7 @@
 // FIREBASE AUTHENTICATION
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, query, where, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { EmailNotificationService } from './email-notification-service.js';
 
 const firebaseConfig = {
@@ -23,7 +23,7 @@ const db = getFirestore(app);
 const EMAILJS_CONFIG = {
     serviceId: 'service_83wtc9p',      // Replace with your service ID from EmailJS
     templateId: 'template_b11fuc8',    // Replace with your template ID from EmailJS
-    publicKey: 'JIIMPiyW7cMaaYEeE'
+    publicKey: 'JIIMPiyW7cMaaYEeE' 
 };
 
 // ==========================================
@@ -131,7 +131,7 @@ function categorizeProductByKeywords(productName) {
     return null;
 }
 
-// AI-based categorization (smart fallback) - ONLY ONE VERSION
+// AI-based categorization (smart fallback)
 async function categorizeProductWithAI(productName) {
     if (!AI_CONFIG.enabled) {
         console.log('AI categorization disabled');
@@ -182,7 +182,7 @@ async function categorizeProductWithAI(productName) {
     }
 }
 
-// Smart categorization: Keywords first, then AI fallback - THIS WAS MISSING!
+// Smart categorization: Keywords first, then AI fallback
 async function categorizeProduct(productName) {
     // Step 1: Try keyword matching (fast)
     const keywordCategory = categorizeProductByKeywords(productName);
@@ -215,21 +215,74 @@ window.testAICategorization = async function(productName) {
     return result;
 };
 
-// TO BUY LIST FUNCTIONALITY
+// ==========================================
+// TO BUY LIST FUNCTIONALITY - NOW WITH FIREBASE!
+// ==========================================
 let toBuyLists = {};
 
-function loadToBuyList() {
-    const saved = localStorage.getItem('toBuyLists');
-    if (saved) {
-        toBuyLists = JSON.parse(saved);
+// Load to-buy list from Firestore
+async function loadToBuyList() {
+    if (!auth.currentUser) return;
+    
+    try {
+        const q = query(
+            collection(db, 'toBuyLists'),
+            where('userId', '==', auth.currentUser.uid)
+        );
+        
+        const querySnapshot = await getDocs(q);
+        
+        // Initialize empty lists for all categories
+        Object.keys(categoryMapping).forEach(category => {
+            toBuyLists[category] = [];
+        });
+        
+        // Populate with data from Firestore
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const category = data.category;
+            
+            if (categoryMapping[category]) {
+                toBuyLists[category] = data.items || [];
+            }
+        });
+        
+        renderAllLists();
+        console.log('✅ To-buy lists loaded from Firestore');
+        
+    } catch (error) {
+        console.error('Error loading to-buy lists:', error);
+        // Fallback to empty lists
+        Object.keys(categoryMapping).forEach(category => {
+            toBuyLists[category] = [];
+        });
         renderAllLists();
     }
 }
 
-function saveToBuyList() {
-    localStorage.setItem('toBuyLists', JSON.stringify(toBuyLists));
+// Save to-buy list to Firestore
+async function saveToBuyList(category) {
+    if (!auth.currentUser) return;
+    
+    try {
+        // Use userId + category as document ID for easy retrieval
+        const docId = `${auth.currentUser.uid}_${category}`;
+        
+        await setDoc(doc(db, 'toBuyLists', docId), {
+            userId: auth.currentUser.uid,
+            category: category,
+            items: toBuyLists[category] || [],
+            lastUpdated: new Date().toISOString()
+        });
+        
+        console.log(`✅ ${category} list saved to Firestore`);
+        
+    } catch (error) {
+        console.error('Error saving to-buy list:', error);
+    }
 }
 
+// Add item to to-buy list
 async function addToBuyItem(productName) {
     const addBtn = document.getElementById('addToBuyBtn');
     const originalText = addBtn.innerHTML;
@@ -249,7 +302,9 @@ async function addToBuyItem(productName) {
             id: Date.now()
         });
         
-        saveToBuyList();
+        // Save to Firestore
+        await saveToBuyList(category);
+        
         renderList(category);
         
         return category;
@@ -259,6 +314,16 @@ async function addToBuyItem(productName) {
     }
 }
 
+// Toggle item checked status
+async function toggleItemChecked(category, itemId) {
+    const item = toBuyLists[category].find(i => i.id === itemId);
+    if (item) {
+        item.checked = !item.checked;
+        await saveToBuyList(category);
+    }
+}
+
+// Render a specific list
 function renderList(category) {
     const listElement = document.getElementById(`list-${category}`);
     if (!listElement) return;
@@ -276,19 +341,19 @@ function renderList(category) {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = item.checked;
-        checkbox.addEventListener('change', () => {
+        checkbox.addEventListener('change', async () => {
             item.checked = checkbox.checked;
             li.classList.toggle('checked', checkbox.checked);
-            saveToBuyList();
+            await saveToBuyList(category);
         });
         
         const label = document.createElement('label');
         label.textContent = item.name;
-        label.addEventListener('click', () => {
+        label.addEventListener('click', async () => {
             checkbox.checked = !checkbox.checked;
             item.checked = checkbox.checked;
             li.classList.toggle('checked', checkbox.checked);
-            saveToBuyList();
+            await saveToBuyList(category);
         });
         
         li.appendChild(checkbox);
@@ -297,16 +362,18 @@ function renderList(category) {
     });
 }
 
+// Render all lists
 function renderAllLists() {
     Object.keys(categoryMapping).forEach(category => {
         renderList(category);
     });
 }
 
-function clearList(category) {
+// Clear a specific list
+async function clearList(category) {
     if (confirm('Are you sure you want to clear this list?')) {
         toBuyLists[category] = [];
-        saveToBuyList();
+        await saveToBuyList(category);
         renderList(category);
     }
 }
