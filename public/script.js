@@ -1,7 +1,8 @@
 // FIREBASE AUTHENTICATION
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { EmailNotificationService } from './email-notification-service.js';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDcmN6fevwByDdUBPvp0G2kypeGjxd93bQ",
@@ -16,18 +17,84 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Redirect if not logged in
+// ==========================================
+// EMAILJS CONFIGURATION
+// ==========================================
+const EMAILJS_CONFIG = {
+    serviceId: 'service_83wtc9p',     
+    templateId: 'template_b11fuc8',    
+    publicKey: 'JIIMPiyW7cMaaYEeE'      
+};
+
+// Create email notification service instance
+let emailNotificationService = null;
+
+// Initialize EmailJS service
+function initializeEmailService() {
+    // Pass Firebase functions to the EmailNotificationService
+    emailNotificationService = new EmailNotificationService(
+        EMAILJS_CONFIG.serviceId,
+        EMAILJS_CONFIG.templateId,
+        EMAILJS_CONFIG.publicKey,
+        {
+            query: query,
+            where: where,
+            collection: collection,
+            getDocs: getDocs
+        }
+    );
+}
+
+// Setup email notifications
+async function setupEmailNotifications(user) {
+    const userEmail = user.email;
+    const userName = user.displayName || userEmail.split('@')[0];
+    
+    if (emailNotificationService) {
+        emailNotificationService.startDailyCheck(db, auth, userEmail, userName);
+        console.log('✅ Email notifications enabled');
+    }
+}
+
+// Redirect if not logged in and setup notifications
 onAuthStateChanged(auth, (user) => {
     if (!user) {
         window.location.href = "login.html";
     } else {
         loadToBuyList();
+        
+        // Initialize and setup email notifications
+        initializeEmailService();
+        setupEmailNotifications(user);
     }
 });
 
 // Logout function
 window.logout = function () {
+    // Stop email checks
+    if (emailNotificationService) {
+        emailNotificationService.stopDailyCheck();
+    }
+    
     signOut(auth);
+};
+
+// Optional: Manual test function
+window.testEmailNotification = async function() {
+    if (emailNotificationService && auth.currentUser) {
+        const userEmail = auth.currentUser.email;
+        const userName = auth.currentUser.displayName || userEmail.split('@')[0];
+        
+        const success = await emailNotificationService.sendNow(db, auth, userEmail, userName);
+        
+        if (success) {
+            alert('✅ Test email sent! Check your inbox.');
+        } else {
+            alert('No items need reminders, or email sending failed. Check console for details.');
+        }
+    } else {
+        alert('Email service not initialized or user not logged in.');
+    }
 };
 
 // PRODUCT CATEGORIZATION MAPPING

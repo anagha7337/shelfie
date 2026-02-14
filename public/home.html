@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+    
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
     <header>
@@ -202,8 +205,12 @@
                     <label>Best before :</label>
                     <div class="best-before-inputs">
                         <div class="input-with-label">
-                            <input type="number" id="bestBeforeYears" name="bestBeforeYears" min="0" max="50" placeholder="0">
-                            <span class="input-label-text">years</span>
+                            <select id="bestBeforeYears" name="bestBeforeYears">
+                                <option value="">years</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
                         </div>
                         <div class="input-with-label">
                             <select id="bestBeforeMonths" name="bestBeforeMonths">
@@ -222,7 +229,7 @@
                             </select>
                         </div>
                         <div class="input-with-label">
-                            <select id="bestBeforeDays" name="bestBeforeDays" required>
+                            <select id="bestBeforeDays" name="bestBeforeDays">
                                 <option value="">days</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -268,7 +275,7 @@
                             <span class="input-label-text">months</span>
                         </div>
                         <div class="input-with-label">
-                            <input type="number" id="remindDays" name="remindDays" min="0" max="31" placeholder="0" required>
+                            <input type="number" id="remindDays" name="remindDays" min="0" max="31" placeholder="0">
                             <span class="input-label-text">days</span>
                         </div>
                     </div>
